@@ -1,0 +1,53 @@
+{
+  "Identifier": "TR-SE-0002",
+  "Type": "Acceptance",
+  "Country": "SE",
+  "Version": "1.0.0",
+  "SchemaVersion": "1.0.0",
+  "Engine": "CERTLOGIC",
+  "EngineVersion": "0.7.5",
+  "CertificateType": "Test",
+  "Description": [
+    {
+      "lang": "en",
+      "desc": "If the test type is \"RAT\" then the \"test product and manufacturer\" MUST be in the valueset list, if it's NAA return true."
+    },
+    {
+      "lang": "de",
+      "desc": "Der Antigen-Test (z.B. Schnelltest) muss in der Liste \"test product and manufacturer\" der SE enthalten sein."
+    },
+    {
+      "lang": "se",
+      "desc": "Om det är ett RAT test så MÅSTE \"test product and manufacturer\" vara i valueset listan"
+    }
+  ],
+  "ValidFrom": "2021-06-01T00:00:00Z",
+  "ValidTo": "2030-06-01T00:00:00Z",
+  "AffectedFields": [
+    "t.0.ma",
+    "t.0.tt"
+  ],
+  "Logic": {
+    "if": [
+      {
+        "===": [
+          {
+            "var": "payload.t.0.tt"
+          },
+          "LP217198-3"
+        ]
+      },
+      {
+        "in": [
+          {
+            "var": "payload.t.0.ma"
+          },
+          {
+            "var": "external.valueSets.covid-19-lab-test-manufacturer-and-name"
+          }
+        ]
+      },
+      true
+    ]
+  }
+}
